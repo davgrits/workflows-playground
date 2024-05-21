@@ -1,0 +1,16 @@
+version: "3"
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+            - 80:80
+    depends_on:
+            - main
+  main:
+    container_name: main
+    build:
+      context: .
+      dockerfile: Dockerfile

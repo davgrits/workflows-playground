@@ -1,0 +1,56 @@
+1. With Terraform:
+    - deploy AWS EC2 instance with docker engine;
+    - with docker compose, run nginx container and Flask app container
+2. trigger deploy-app pipeline:
+    - app\main-new.py should change app\main.py (Push it to main branch )
+    - it will redeploy Flask app container
+
+
+The source files content:
+- app/main.py					- Python Flask application
+- app/main-new.py		- Python Flask application new version
+- app/requirements.txt			- requirements.txt file
+- app/nginx.conf				- custom nginx configuration file
+- app/Dockerfile				- Dockerfile for the Flask app image
+- app/Dockerfile.nginx			- Dockerfile for the nginx image (with our custom nginx.conf)
+- app/docker-compose.yaml		- docker-compose file to run 2 containers with nginx and flask app
+- main.tf                 		- Terraform configuration file with set of instructions with the following providers: hashicorp/aws, hashicorp/tls, hashicorp/local
+- README						- this README file
+
+
+Prerequisites:
+1. Terraform CLI installed
+2. AWS CLI installed
+3. AWS account with saved AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in ~/.aws/credentials file
+
+
+Step 1 - Deploy EC2 with Flask app with Terraform
+In the CLI, in the source files directory, run commands:
+1. terraform init		- initialize terraform
+2. terraform validate 	- be sure it prints, the configuration is valid
+3. terraform apply 		- approve it with answering "yes"
+
+It will:
+- create new ssh key pairs and save it locally as aws_key.pem and aws_key.pub
+- create new security group, that allows ssh connection (port 22) and web http browsing (port 80)
+- deploy Amazon Linux 2 EC2 instance in the us-east-1 region, it will use default region VPC and configured ssh key and security group
+- install docker and docker-compose
+- copy app folder with alll files to the instance
+- run command "docker-compose up -d --build", that actually run our web service
+- in the end it prints the instance IP, for example: instance_ip = "44.201.137.178"
+
+Notes:
+- to ssh to the EC2 instance with PuTTY (on WIndows), there's need to convert private key aws_key.pem to aws_key.ppk with PuTTYgen
+- the default username of the instance is "ec2-user"
+
+
+Step 2 - Validate web access to the deployed server
+Validate web access to the server with http://instance_ip
+
+For example:
+http://44.201.137.178/ - should display "Welcome adventurers!"
+http://44.201.137.178/api - should display "Welcome to adventurers API"
+
+
+Step 3 - 
+
