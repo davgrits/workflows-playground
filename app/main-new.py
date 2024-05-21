@@ -9,7 +9,7 @@ external_ip = urllib.request.urlopen('https://v4.ident.me').read().decode('utf8'
 
 @app.route('/')
 def welcome():
-   return f"Welcome adventurers!\nExternal IP is {external_ip}\nInternal IP is {internal_ip}"
+   return f"Welcome adventurers! Your external IP is {external_ip} and your Internal IP is {internal_ip}. Good luck!"
 
 @app.route('/api')
 def welcome2api():

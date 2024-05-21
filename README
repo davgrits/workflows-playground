@@ -1,9 +1,8 @@
 1. With Terraform:
     - deploy AWS EC2 instance with docker engine;
     - with docker compose, run nginx container and Flask app container
-2. trigger deploy-app pipeline:
-    - app\main-new.py should change app\main.py (Push it to main branch )
-    - it will redeploy Flask app container
+2. Every push to main branch will trigger deploy-app pipeline:
+    - it will redeploy Flask app main container
 
 
 The source files content:
@@ -52,5 +51,8 @@ http://44.201.137.178/ - should display "Welcome adventurers!"
 http://44.201.137.178/api - should display "Welcome to adventurers API"
 
 
-Step 3 - 
-
+Step 3 
+- Change something in main.py or in Dockefile change Flask to deploy main-new.py instead main.py
+- Commit & Push to main GitHub branch, https://github.com/davgrits/workflows-playground public repo
+- See Actions Workflow started to run
+- Validate it was running successfully and content of the URL updated successfully

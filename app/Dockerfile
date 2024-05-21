@@ -5,6 +5,6 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-COPY main-new.py .
+COPY main.py .
 
-ENTRYPOINT FLASK_APP=main-new.py flask run --host=0.0.0.0
+ENTRYPOINT FLASK_APP=main.py flask run --host=0.0.0.0

@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def welcome():
-   return "Welcome adventurers!"
+   return "Welcome adventurers! Do you know what are your IPs?"
 
 @app.route('/api')
 def welcome2api():
